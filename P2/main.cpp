@@ -93,12 +93,12 @@ glm::vec3 player_movement = glm::vec3(0, 0, 0);
 // Paddle1:
 glm::vec3 p1_position = glm::vec3(-4.75, 0, 0);
 glm::vec3 p1_movement = glm::vec3(0, 0, 0);
-float p1_speed = 3.85f;
+float p1_speed = 4.5f;
 
 // Paddle2:
 glm::vec3 p2_position = glm::vec3(4.75, 0, 0);
 glm::vec3 p2_movement = glm::vec3(0, 0, 0);
-float p2_speed = 3.85f;
+float p2_speed = 4.5f;
 
 // Paddles
 glm::vec3 p_scale = glm::vec3(0.75f, 1.55f, 1.0f);
@@ -412,11 +412,7 @@ void update()
 	model_matrix_p2 = glm::translate(model_matrix_p2, p2_position);
 	model_matrix_p2 = glm::scale(model_matrix_p2, p_scale);
 
-
 }
-
-
-
 
 
 void render() {
@@ -530,8 +526,6 @@ void shutdown() {
 	SDL_JoystickClose(playerOneController);
 	SDL_Quit();
 }
-
-bool showing_result = true;
 
 void sleepcp(int milliseconds) // Cross-platform sleep function
 {
