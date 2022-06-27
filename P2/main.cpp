@@ -93,12 +93,12 @@ glm::vec3 player_movement = glm::vec3(0, 0, 0);
 // Paddle1:
 glm::vec3 p1_position = glm::vec3(-4.75, 0, 0);
 glm::vec3 p1_movement = glm::vec3(0, 0, 0);
-float p1_speed = 4.5f;
+float p1_speed = 3.5f;
 
 // Paddle2:
 glm::vec3 p2_position = glm::vec3(4.75, 0, 0);
 glm::vec3 p2_movement = glm::vec3(0, 0, 0);
-float p2_speed = 4.5f;
+float p2_speed = 3.5f;
 
 // Paddles
 glm::vec3 p_scale = glm::vec3(0.75f, 1.55f, 1.0f);
@@ -112,7 +112,7 @@ glm::vec3 ball_scale = glm::vec3(0.35f, 0.35f, 1.0f);
 float ball_height = 1.0f * ball_scale.y;
 float ball_width = 1.0f * ball_scale.x;
 
-float ball_speed = 7.5f;
+float ball_speed = 5.5f;
 float ball_rotate = 1.0f;
 bool ball_path_reversed = false;
 
