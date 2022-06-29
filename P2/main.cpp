@@ -89,7 +89,6 @@ glm::vec3 player_position = glm::vec3(0, 0, 0);
 glm::vec3 player_movement = glm::vec3(0, 0, 0);
 */
 
-// Start Initalization
 // Paddle1:
 glm::vec3 p1_position = glm::vec3(-4.75, 0, 0);
 glm::vec3 p1_movement = glm::vec3(0, 0, 0);
@@ -116,34 +115,7 @@ float ball_speed = 5.5f;
 float ball_rotate = 1.0f;
 bool ball_path_reversed = false;
 
-
 SDL_Joystick* playerOneController;
-
-float get_screen_to_ortho(float coordinate, Coordinate axis) {
-	switch (axis) {
-	case x_coordinate:
-		return ((coordinate / WINDOW_WIDTH) * 10.0) - (10.0 / 2.0);
-	case y_coordinate:
-		return (((WINDOW_HEIGHT - coordinate) / WINDOW_HEIGHT) * 7.5f) - (10.0 / 2.0);
-	default:
-		return 0.0;
-	}
-}
-
-void print_matrix(glm::mat4& matrix, int size)
-{
-	for (auto row = 0; row < size; row++)
-	{
-		for (auto col = 0; col < size; col++)
-		{
-			// Print row
-			std::cout << matrix[row][col] << MAT_SEP;
-		}
-
-		// Visually "move on" to the next row
-		std::cout << "\n";
-	}
-}
 
 
 const float GROWTH_FACTOR = 1.01f;  // growth rate of 1.0% per frame
@@ -153,6 +125,7 @@ const int MAX_FRAME = 40;           // this value is, of course, up to you
 const int NUMBER_OF_TEXTURES = 1; // to be generated, that is
 const GLint LEVEL_OF_DETAIL = 0; // base image level; Level n is the nth mipmap reduction image
 const GLint TEXTURE_BORDER = 0; // this value MUST be zero
+
 
 GLuint load_texture(const char* filepath)
 {
@@ -492,6 +465,7 @@ void result_render() {
 }
 
 void start_render() {
+
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	//program.SetModelMatrix(model_matrix);
@@ -557,14 +531,12 @@ int main(int argc, char* argv[]) {
 		render();
 
 	}
-
 	
 	result_render(); 
 	sleepcp(5000);
 
 	// STEP 6: Shut our engine down
 	shutdown();
-
 
 	return 0;
 }
