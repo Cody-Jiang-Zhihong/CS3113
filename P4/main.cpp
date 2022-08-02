@@ -1,3 +1,17 @@
+/*******************************
+    NYU Tandon - CS 3113
+    Project4 - Rise of the AI
+       - main.cpp -
+       By Cody Jiang
+       zj2247@nyu.edu
+*******************************/
+
+/*
+    3 AI: one patrol, one close will jump far away from the attack, one in the distance need to close to activate
+    Lose: hit from the side by AI, fall off the platform
+    Win:Jump to kill all three AI
+*/
+
 #define GL_SILENCE_DEPRECATION
 
 #ifdef _WINDOWS
