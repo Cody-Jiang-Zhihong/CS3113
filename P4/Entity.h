@@ -1,3 +1,11 @@
+/*******************************
+    NYU Tandon - CS 3113
+    Project4 - Rise of the AI
+       - Entity.h -
+       By Cody Jiang
+       zj2247@nyu.edu
+*******************************/
+
 #define GL_SILENCE_DEPRECATION
 
 #ifdef _WINDOWS
