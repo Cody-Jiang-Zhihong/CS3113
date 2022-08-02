@@ -114,6 +114,41 @@ void Initialize() {
     state.player->speed = 2.85f;
     state.player->jumpPower = 3.2f;
 
+    //PLATFORMS
+    state.platforms = new Entity[PLATFORM_COUNT];
+    GLuint platformTextureID = LoadTexture("platform.png");
+
+    int x = 0;
+    for (int i = 0; i < PLATFORM_COUNT; i++) {
+        state.platforms[i].entityType = PLATFORM;
+        state.platforms[i].textureID = platformTextureID;
+
+        if (i < 6) {
+            state.platforms[i].position = glm::vec3(-4.5 + 2 * i, -3.25, 0);
+        }
+        else if (i < 10) {
+            state.platforms[i].position = glm::vec3(-4.5 + i, -3.25, 0);
+        }
+        else if (i < 14) {
+            x = i - 4;
+            state.platforms[i].position = glm::vec3(-4.5 + x, -2.25, 0);
+        }
+        else if (i < 17) {
+            x = i - 7;
+            state.platforms[i].position = glm::vec3(-4.5 + x, -1.25, 0);
+        }
+        else if (i < 20) {
+            x = i - 9;
+            state.platforms[i].position = glm::vec3(-4.5 + x, -0.25, 0);
+        }
+        else {
+            x = i - 19;
+            state.platforms[i].position = glm::vec3(-4.5 + x, 0.75, 0);
+        }
+
+        state.platforms[i].Update(0, NULL, NULL, 0, NULL, NULL);
+    }
+
     //ENEMIES
     state.enemies = new Entity[ENEMY_COUNT];
 
@@ -151,40 +186,7 @@ void Initialize() {
         state.enemies[i].speed = 1;
     }
 
-    //PLATFORMS
-    state.platforms = new Entity[PLATFORM_COUNT];
-    GLuint platformTextureID = LoadTexture("platform.png");
-
-    int x = 0;
-    for (int i = 0; i < PLATFORM_COUNT; i++) {
-        state.platforms[i].entityType = PLATFORM;
-        state.platforms[i].textureID = platformTextureID;
-
-        if (i < 6) {
-            state.platforms[i].position = glm::vec3(-4.5 + 2 * i, -3.25, 0);
-        }
-        else if (i < 10) {
-            state.platforms[i].position = glm::vec3(-4.5 + i, -3.25, 0);
-        }
-        else if (i < 14) {
-            x = i - 4;
-            state.platforms[i].position = glm::vec3(-4.5 + x, -2.25, 0);
-        }
-        else if (i < 17) {
-            x = i - 7;
-            state.platforms[i].position = glm::vec3(-4.5 + x, -1.25, 0);
-        }
-        else if (i < 20) {
-            x = i - 9;
-            state.platforms[i].position = glm::vec3(-4.5 + x, -0.25, 0);
-        }
-        else {
-            x = i - 19;
-            state.platforms[i].position = glm::vec3(-4.5 + x, 0.75, 0);
-        }
-
-        state.platforms[i].Update(0, NULL, NULL, 0, NULL, NULL);
-    }
+    
 }
 
 void DrawText(ShaderProgram* program, GLuint fontTextureID, std::string text, float size, float spacing, glm::vec3 position)
