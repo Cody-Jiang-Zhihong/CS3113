@@ -1,3 +1,11 @@
+/*******************************
+    NYU Tandon - CS 3113
+    Project4 - Rise of the AI
+       - Entity.cpp -
+       By Cody Jiang
+       zj2247@nyu.edu
+*******************************/
+
 #include "Entity.h"
 
 Entity::Entity()
