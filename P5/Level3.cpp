@@ -44,7 +44,7 @@ void Level3::Initialize() {
     state.player->movement = glm::vec3(0);
     state.player->acceleration = glm::vec3(0, -9.81f, 0);
     state.player->speed = 2.5f;
-    state.player->textureID = Util::LoadTexture("george_0.png");
+    state.player->textureID = Util::LoadTexture("not_george.png");
 
     state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
@@ -139,17 +139,16 @@ void Level3::Render(ShaderProgram* program) {
     Util::DrawText(program, fontTextureID, "Level", 1.0f, 0.1f, glm::vec3(12.05, 1.0, 0));
     Util::DrawText(program, fontTextureID, "3", 1.0f, 0.1f, glm::vec3(13.75, -0.1, 0));
 
-    Util::DrawText(program, fontTextureID, "End!", 0.4f, 0.05f, glm::vec3(9.85, 1.05, 0));
+    Util::DrawText(program, fontTextureID, "!!!", 0.4f, 0.05f, glm::vec3(9.85, 1.05, 0));
 
     // formatting lives
     std::string lives_str = std::to_string(state.player_lives);
 
-    // thanks https://stackoverflow.com/a/58972804 for tip
     std::string rounded = lives_str.substr(0, lives_str.find(".") + 0);
 
-    std::string lives_left = "Lives: " + rounded;
+    std::string lives_left = "Lives remaining: " + rounded;
 
-    Util::DrawText(program, fontTextureID, lives_left, 0.2f, 0.1f, glm::vec3(3, 1.0, 0));
+    Util::DrawText(program, fontTextureID, lives_left, 0.4f, 0.1f, glm::vec3(3, 1.0, 0));
 
     for (int i = 0; i < LEVEL3_ENEMY_COUNT; i++) {
         state.enemies[i].Render(program);
