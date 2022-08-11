@@ -69,7 +69,7 @@ void Menu::Update(float deltaTime) {
 
 void Menu::Render(ShaderProgram* program) {
     GLuint fontTextureID = Util::LoadTexture("font1.png");
-    Util::DrawText(program, fontTextureID, "MENU", 1.0f, 0.1f, glm::vec3(3.5, -10, 0));
+    Util::DrawText(program, fontTextureID, "Brave Knight", 1.0f, 0.1f, glm::vec3(3.5, -10, 0));
     Util::DrawText(program, fontTextureID, "Try Jump!", 0.6f, 0.1f, glm::vec3(1.75, -11.1, 0));
 
     Util::DrawText(program, fontTextureID, "Press Enter", 0.6f, 0.1f, glm::vec3(1.75, -13, 0));
