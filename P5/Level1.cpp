@@ -49,7 +49,7 @@ void Level1::Initialize() {
     state.player->movement = glm::vec3(0);
     state.player->acceleration = glm::vec3(0, -9.81f, 0);
     state.player->speed = 2.5f;
-    state.player->textureID = Util::LoadTexture("george_0.png");
+    state.player->textureID = Util::LoadTexture("not_george.png");
 
     state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
@@ -133,14 +133,12 @@ void Level1::Render(ShaderProgram* program) {
 
     Util::DrawText(program, fontTextureID, "NOT Here~", 0.4f, 0.05f, glm::vec3(8.7, -11, 0));
 
-    //Util::DrawText(program, fontTextureID, "JUMP!", 0.4f, 0.05f, glm::vec3(2.0, -4.8, 0));
 
     Util::DrawText(program, fontTextureID, "???", 0.6f, 0.1f, glm::vec3(15, 1.0, 0));
 
     // formatting lives
     std::string lives_str = std::to_string(state.player_lives);
 
-    // thanks https://stackoverflow.com/a/58972804 for tip
     std::string rounded = lives_str.substr(0, lives_str.find(".") + 0);
 
     std::string lives_left = "Lives remaining: " + rounded;
