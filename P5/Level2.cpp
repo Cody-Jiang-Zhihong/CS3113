@@ -7,19 +7,19 @@
 
 unsigned int level2_data[] =
 {
-    /*
+    
     3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 3,
     3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 3,
     3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3, 3, 0, 0, 3, 3, 0, 3,
     3, 0, 0, 3, 3, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3,
     3, 3, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-    */
+    
     3, 2, 2, 0, 0, 0, 0, 2, 2, 3, 2, 0, 2, 0, 0, 2, 0, 3,
     3, 0, 0, 2, 0, 2, 0, 0, 3, 0, 0, 0, 0, 0, 2, 3, 0, 3,
     3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 0, 3,
     3, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 3, 3, 3, 0, 3,
     3, 0, 0, 0, 0, 2, 2, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 3,
-    /*
+    
     3, 2, 2, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3,
     3, 0, 2, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3,
     3, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 3, 0, 3, 3,
@@ -27,7 +27,7 @@ unsigned int level2_data[] =
     3, 3, 0, 0, 3, 3, 0, 0, 2, 3, 3, 0, 2, 3, 0, 0, 0, 3,
     3, 3, 3, 0, 0, 0, 0, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3,
     3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0, 0, 3
-    */
+    
 };
 
 Level2::Level2(int _lives) {
@@ -48,7 +48,7 @@ void Level2::Initialize() {
     state.player->movement = glm::vec3(0);
     state.player->acceleration = glm::vec3(0, -9.81f, 0);
     state.player->speed = 2.5f;
-    state.player->textureID = Util::LoadTexture("george_0.png");
+    state.player->textureID = Util::LoadTexture("not_george.png");
 
     state.player->animRight = new int[4]{ 3, 7, 11, 15 };
     state.player->animLeft = new int[4]{ 1, 5, 9, 13 };
@@ -138,18 +138,16 @@ void Level2::Update(float deltaTime) {
 void Level2::Render(ShaderProgram* program) {
     GLuint fontTextureID = Util::LoadTexture("font1.png");
     Util::DrawText(program, fontTextureID, "Level 2", 1.0f, 0.1f, glm::vec3(9.5, -10.5, 0));
-    Util::DrawText(program, fontTextureID, "Gotta get back up", 0.4f, 0.05f, glm::vec3(9.4, -11.3, 0));
-    Util::DrawText(program, fontTextureID, "..Finish?", 0.4f, 0.05f, glm::vec3(13.7, 1.0, 0));
+    Util::DrawText(program, fontTextureID, "...???", 0.4f, 0.05f, glm::vec3(13.7, 1.0, 0));
 
     // formatting lives
     std::string lives_str = std::to_string(state.player_lives);
 
-    // thanks https://stackoverflow.com/a/58972804 for tip
     std::string rounded = lives_str.substr(0, lives_str.find(".") + 0);
 
-    std::string lives_left = "Lives: " + rounded;
+    std::string lives_left = "Lives remainging: " + rounded;
 
-    Util::DrawText(program, fontTextureID, lives_left, 0.2f, 0.1f, glm::vec3(3, 1.0, 0));
+    Util::DrawText(program, fontTextureID, lives_left, 0.4f, 0.1f, glm::vec3(3, 1.0, 0));
 
     for (int i = 0; i < LEVEL2_ENEMY_COUNT; i++) {
         state.enemies[i].Render(program);
