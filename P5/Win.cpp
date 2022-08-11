@@ -70,7 +70,7 @@ void Win::Update(float deltaTime) {
 void Win::Render(ShaderProgram* program) {
     GLuint fontTextureID = Util::LoadTexture("font1.png");
     Util::DrawText(program, fontTextureID, "BRAVO!", 0.4f, 0.1f, glm::vec3(1.5, -12, 0));
-    Util::DrawText(program, fontTextureID, "You passed", 0.4f, 0.1f, glm::vec3(3.5, -13, 0));
+    Util::DrawText(program, fontTextureID, "You Win", 0.4f, 0.1f, glm::vec3(3.5, -13, 0));
     Util::DrawText(program, fontTextureID, "and u kill", 0.4f, 0.1f, glm::vec3(2.5, -14, 0));
     Util::DrawText(program, fontTextureID, "them ALLLLLL!", 0.4f, 0.1f, glm::vec3(2.0, -15, 0));
 
