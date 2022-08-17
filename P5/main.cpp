@@ -59,7 +59,6 @@ void SwitchToScene(int _nextScene, int _lives = 3) {
     currentScene->Initialize();
 }
 
-
 const char START_SPRITE[] = "start.png";
 GLuint start_texture_id;
 glm::mat4 model_matrix_start;
@@ -86,7 +85,7 @@ GLuint load_texture(const char* filepath)
 
 void Initialize() {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    display_window = SDL_CreateWindow("Brave Knight", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_OPENGL);
+    display_window = SDL_CreateWindow("Godme", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(display_window);
     SDL_GL_MakeCurrent(display_window, context);
 
@@ -94,7 +93,7 @@ void Initialize() {
     glewInit();
 #endif
 
-    glViewport(0, 0, 640, 480);
+    glViewport(0, 0, 1280, 960);
 
     program.Load("shaders/vertex_textured.glsl", "shaders/fragment_textured.glsl");
 
@@ -104,7 +103,7 @@ void Initialize() {
     model_matrix_start = glm::scale(model_matrix_start, glm::vec3(10.0f, 10.0f, 5.0f));
 
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096);
-    music = Mix_LoadMUS("file_example_MP3_700KB.mp3");
+    music = Mix_LoadMUS("ccc.mp3");
     Mix_PlayMusic(music, -1);
 
     hop = Mix_LoadWAV("spin_jump.wav");
@@ -118,7 +117,7 @@ void Initialize() {
 
     glUseProgram(program.programID);
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // black
+    glClearColor(0.5f, 1.0f, 1.5f, 0.0f); // black
     glEnable(GL_BLEND);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -131,6 +130,11 @@ void Initialize() {
     sceneList[5] = new Lose();
     SwitchToScene(0);
 }
+
+
+bool ai_1_talked = false;
+bool Godme = false;
+
 
 void ProcessInput() {
 
@@ -154,6 +158,14 @@ void ProcessInput() {
                 // Move the player right
                 break;
 
+            case SDLK_UP:
+                // Move the player up
+                break;
+
+            case SDLK_DOWN:
+                // Move the player down
+                break;
+
             case SDLK_RETURN:
                 currentScene->state.player_lives = 3;
                 SwitchToScene(1);
@@ -166,26 +178,66 @@ void ProcessInput() {
                 }
                 break;
             }
+
+
             break; // SDL_KEYDOWN
         }
     }
 
-    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    const Uint8* key_state = SDL_GetKeyboardState(NULL);
 
-    if (keys[SDL_SCANCODE_RETURN]) {
+    if (key_state[SDL_SCANCODE_RETURN]) {
         currentScene->state.player_lives = 3;
         SwitchToScene(1);
     }
 
-    if (keys[SDL_SCANCODE_LEFT]) {
+    if (key_state[SDL_SCANCODE_LEFT]) {
         currentScene->state.player->movement.x = -1.0f;
-        //currentScene->state.player->animIndices = currentScene->state.player->animLeft;
+        currentScene->state.player->animIndices = currentScene->state.player->animLeft;
+        if (currentScene->state.bullets->fired == false) {
+            currentScene->state.bullets->BTdirection = 2;
+            currentScene->state.bullets->fired = true;
+        }
     }
-    else if (keys[SDL_SCANCODE_RIGHT]) {
+    else if (key_state[SDL_SCANCODE_RIGHT]) {
         currentScene->state.player->movement.x = 1.0f;
-        //currentScene->state.player->animIndices = currentScene->state.player->animRight;
+        currentScene->state.player->animIndices = currentScene->state.player->animRight;
     }
-
+    if (key_state[SDL_SCANCODE_UP])
+    {
+        currentScene->state.player->movement.y = 1.0f;
+        currentScene->state.player->animIndices = currentScene->state.player->animUp;
+    }
+    else if (key_state[SDL_SCANCODE_DOWN])
+    {
+        currentScene->state.player->movement.y = -1.0f;
+        currentScene->state.player->animIndices = currentScene->state.player->animDown;
+    }
+    else if (key_state[SDL_SCANCODE_G]) {
+        if (Godme == false) {
+            currentScene->state.player->textureID = Util::LoadTexture("cody_1_full.png"); // Godme!!!!!!!!!!!!
+            Godme = true;
+        }
+        else {
+            currentScene->state.player->textureID = Util::LoadTexture("cody_0_full.png");
+            Godme = false;
+        }
+    }
+    else if (key_state[SDL_SCANCODE_T] && currentScene->state.player->CheckCollision_Talk(&currentScene->state.enemies[1])) {
+        if (ai_1_talked == false) {
+            currentScene->state.enemies[1].textureID = Util::LoadTexture("ai_chat_1.png");
+            ai_1_talked = true;
+        }
+        else {
+            currentScene->state.enemies[1].textureID = Util::LoadTexture("ai.png");
+            ai_1_talked = false;
+        }
+    }
+    else if (key_state[SDL_SCANCODE_F]) // fire
+    {
+        currentScene->state.bullets->position = currentScene->state.player->position;
+    }
+    
 
     if (glm::length(currentScene->state.player->movement) > 1.0f) {
         currentScene->state.player->movement = glm::normalize(currentScene->state.player->movement);
@@ -336,8 +388,9 @@ int main(int argc, char* argv[]) {
    
     start_render();
     //sleepcp(3500);
-
+    SDL_Event event;
     while (gameIsRunning) {
+        
         ProcessInput();
         Update();
 
@@ -345,7 +398,6 @@ int main(int argc, char* argv[]) {
             if (currentScene->state.player_lives == 0) {
                 SwitchToScene(5);
             }
-            // if next is less than curr initialize w less lives?
             else {
                 SwitchToScene(currentScene->state.nextScene, currentScene->state.player_lives);
             }
